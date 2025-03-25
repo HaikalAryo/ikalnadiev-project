@@ -4,6 +4,17 @@ $(document).ready(function() {
     const recipeCloseBtn = $("#recipe-close-btn");
     const mealcategory = $("#mealcategory");
 
+    // Smooth scrolling untuk navigasi
+    $(".nav-link").on("click", function(event) {
+        if (this.hash !== "") {
+            event.preventDefault();
+            let hash = this.hash;
+            $('html, body').animate({
+                scrollTop: $(hash).offset().top
+            }, 800);
+        }
+    });
+
     // Event listener untuk pencarian makanan
     $("#search-btn").on("click", function() {
         getMealList();
@@ -44,7 +55,7 @@ $(document).ready(function() {
                     });
                     mealList.removeClass("notFound");
                 } else {
-                    html = "Sorry, we didn't find any meal!";
+                    html = "<p class='text-center'>Sorry, we didn't find any meal!</p>";
                     mealList.addClass("notFound");
                 }
                 mealList.html(html);
@@ -71,7 +82,7 @@ $(document).ready(function() {
                 <p>${meal.strInstructions}</p>
             </div>
             <div class="recipe-meal-img">
-                <img src="${meal.strMealThumb}" alt="">
+                <img src="${meal.strMealThumb}" alt="meal">
             </div>
             <div class="recipe-link">
                 <a href="${meal.strYoutube}" target="_blank">Watch Video</a>
@@ -88,12 +99,12 @@ $(document).ready(function() {
             $.each(data.categories, function(index, category) {
                 html += `
                     <div class="card m-3" data-id="${category.idCategory}">
-                        <img src="${category.strCategoryThumb}" class="card-img-top" alt="...">
+                        <img src="${category.strCategoryThumb}" class="card-img-top" alt="Category Image">
                         <div class="card-body">
                             <h5 class="card-title text-center">${category.strCategory}</h5>
                         </div>
                         <div class="mb-5 d-flex justify-content-around">
-                            <button class="btn btn-primary">See All</button>
+                            <a href="see-all.html" class="btn btn-primary">See All</a>
                         </div>
                     </div>
                 `;
